@@ -2,7 +2,7 @@
 
 **Effective date:** 2026-06-13
 **Extension:** ReviewGenie – AI Doc Reviewer & Blueprint Engine
-**Contact:** _Replace with your support email, e.g._ `support@yourdomain.com`
+**Contact:** _Replace with your support email, e.g._ `raghunitb@gmail.com`
 
 ReviewGenie is a "Bring Your Own Key" (BYOK) Chrome extension that helps you review Confluence pages with the AI provider **you** configure. We — the publisher of ReviewGenie — do **not** operate a backend, do **not** run analytics, and do **not** receive any of your data.
 
