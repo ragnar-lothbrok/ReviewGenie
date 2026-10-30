@@ -1,4 +1,4 @@
-# ReviewGenie — Privacy Policy
+[# ReviewGenie — Privacy Policy
 
 **Effective date:** 2026-06-13
 **Extension:** ReviewGenie – AI Doc Reviewer & Blueprint Engine
@@ -95,3 +95,4 @@ For questions or data requests: _Replace with your support email_ — `support@y
 > 2. Host this file at a public HTTPS URL (e.g., GitHub Pages, your domain) and paste that URL into the **Privacy policy URL** field of the Chrome Web Store Developer Dashboard.
 > 3. In the Dashboard's **Privacy practices** tab, declare a "Single purpose": _Review and improve technical documents on Confluence using a user-configured AI provider._
 > 4. Declare data usage as: **Website content** (used for the single purpose, not sold, not used for credit/advertising, not used for unrelated purposes).
+](https://github.com/ragnar-lothbrok/ReviewGenie/blob/main/PRIVACY.md)
