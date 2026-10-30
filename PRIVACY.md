@@ -1,11 +1,11 @@
 <!-- https://github.com/ragnar-lothbrok/ReviewGenie/blob/main/PRIVACY.md -->
-# ReviewGenie ‚Äî Privacy Policy
+# ReviewGenie — Privacy Policy
 
 **Effective date:** 2026-10-30
-**Extension:** ReviewGenie ‚Äì AI Code Review, Doc & Ticket Review, Jira Ticket Generator
+**Extension:** ReviewGenie – AI Code Review, Doc & Ticket Review, Jira Ticket Generator
 **Contact:** `raghunitb@gmail.com`
 
-ReviewGenie is a "Bring Your Own Key" (BYOK) Chrome extension that reviews the documents, tickets and pull requests you open in your browser, using the AI provider **you** configure. We ‚Äî the publisher of ReviewGenie ‚Äî do **not** operate a backend, do **not** run analytics, and do **not** receive any of your data.
+ReviewGenie is a "Bring Your Own Key" (BYOK) Chrome extension that reviews the documents, tickets and pull requests you open in your browser, using the AI provider **you** configure. We — the publisher of ReviewGenie — do **not** operate a backend, do **not** run analytics, and do **not** receive any of your data.
 
 This policy explains exactly what data the extension touches, where it goes, and why each Chrome permission is requested.
 
@@ -48,10 +48,10 @@ Depending on the action, the request contains:
 
 Recipients depend entirely on your settings:
 
-- **OpenAI** ‚Üí `https://api.openai.com/v1/...` (subject to [OpenAI's privacy policy](https://openai.com/policies/privacy-policy))
-- **Anthropic** ‚Üí `https://api.anthropic.com/...` (subject to [Anthropic's privacy policy](https://www.anthropic.com/legal/privacy))
-- **Azure OpenAI** ‚Üí your tenant endpoint at `*.azure-api.net` / `*.openai.azure.com` (subject to your Microsoft agreement)
-- **Custom Endpoint** ‚Üí the URL you entered, such as a company gateway or a model running on your own machine (subject to that operator's terms)
+- **OpenAI** → `https://api.openai.com/v1/...` (subject to [OpenAI's privacy policy](https://openai.com/policies/privacy-policy))
+- **Anthropic** → `https://api.anthropic.com/...` (subject to [Anthropic's privacy policy](https://www.anthropic.com/legal/privacy))
+- **Azure OpenAI** → your tenant endpoint at `*.azure-api.net` / `*.openai.azure.com` (subject to your Microsoft agreement)
+- **Custom Endpoint** → the URL you entered, such as a company gateway or a model running on your own machine (subject to that operator's terms)
 
 ReviewGenie does **not** proxy these requests; they go directly from your browser to your provider. Whether your provider retains or trains on this data is governed by **your provider's** terms and your account settings.
 
@@ -64,7 +64,7 @@ Documents, tickets and code live on many domains, so the content script loads on
 - It reads what is **rendered on screen**. It does not call Jira, GitHub or GitLab APIs, and it never creates, edits or comments on tickets or pull requests. Findings and ticket text are copied to your clipboard for you to paste.
 - It does not read pages in the background or crawl other pages.
 - The only action that changes a page is **Insert into Page Editor** (Optimize tab). It asks for confirmation first and only edits the open editor.
-- You can restrict ReviewGenie to specific sites in **Settings ‚Üí Allowed Sites**.
+- You can restrict ReviewGenie to specific sites in **Settings → Allowed Sites**.
 
 ## 5. Permissions justification
 
@@ -86,7 +86,7 @@ Documents, tickets and code live on many domains, so the content script loads on
 - ReviewGenie does **not** use your documents, tickets, code or prompts to train any model.
 - We do **not** include analytics, A/B testing, or fingerprinting libraries.
 - We do **not** read browsing history or any tab other than the one you ask it to review.
-- We do **not** send anything automatically ‚Äî every network call requires an explicit user action.
+- We do **not** send anything automatically — every network call requires an explicit user action.
 
 ## 7. Security
 
