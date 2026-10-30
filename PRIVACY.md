@@ -1,10 +1,11 @@
-[# ReviewGenie — Privacy Policy
+<!-- https://github.com/ragnar-lothbrok/ReviewGenie/blob/main/PRIVACY.md -->
+# ReviewGenie ‚Äî Privacy Policy
 
-**Effective date:** 2026-06-13
-**Extension:** ReviewGenie – AI Doc Reviewer & Blueprint Engine
-**Contact:** _Replace with your support email, e.g._ `raghunitb@gmail.com`
+**Effective date:** 2026-10-30
+**Extension:** ReviewGenie ‚Äì AI Code Review, Doc & Ticket Review, Jira Ticket Generator
+**Contact:** `raghunitb@gmail.com`
 
-ReviewGenie is a "Bring Your Own Key" (BYOK) Chrome extension that helps you review Confluence pages with the AI provider **you** configure. We — the publisher of ReviewGenie — do **not** operate a backend, do **not** run analytics, and do **not** receive any of your data.
+ReviewGenie is a "Bring Your Own Key" (BYOK) Chrome extension that reviews the documents, tickets and pull requests you open in your browser, using the AI provider **you** configure. We ‚Äî the publisher of ReviewGenie ‚Äî do **not** operate a backend, do **not** run analytics, and do **not** receive any of your data.
 
 This policy explains exactly what data the extension touches, where it goes, and why each Chrome permission is requested.
 
@@ -12,69 +13,86 @@ This policy explains exactly what data the extension touches, where it goes, and
 
 ## 1. Data we collect about you
 
-**None.** ReviewGenie has no servers, no telemetry, no analytics SDKs, no advertising identifiers, no crash reporters, and no third-party trackers. The publisher cannot see your documents, your API key, your configuration, or your usage.
+**None.** ReviewGenie has no servers, no telemetry, no analytics SDKs, no advertising identifiers, no crash reporters, and no third-party trackers. The publisher cannot see your documents, tickets, code, API key, configuration, or usage.
 
 ## 2. Data stored locally on your device
 
-The following items are stored using Chrome's `chrome.storage.local` API and never leave your machine except as described in Section 3:
+The following items are stored with Chrome's `chrome.storage` API on your machine. They never leave it except as described in Section 3.
 
 | Item | Purpose |
 | --- | --- |
-| AI provider selection (OpenAI / Anthropic / Azure / Custom) | Routes API calls correctly |
-| API base URL, deployment name, API version, model name | Identifies the endpoint to call |
+| AI provider, base URL, deployment name, API version, model, API type, temperature, max tokens | Routes and configures calls to your provider |
 | **Your API key** | Authenticates calls to **your** AI provider |
-| Last-analysis cache for the current page | Avoids re-sending the same page to your provider |
+| Display and panel settings (font size, panel scope, analysis state mode) | Remembers how you like the side panel |
+| Allowed Sites list (optional) | Limits which sites ReviewGenie runs on |
+| Code review team guidelines (optional) | Added to your pull request reviews |
+| Last analysis of a page (its text and the AI results), per tab if you choose | Lets you reopen results without re-sending the page |
+| Constraints you lock in chat | Keeps your stated rules for later chat turns |
+| Chat thread ID (session storage, cleared when Chrome closes) | Continues a Responses API conversation |
 
-Uninstalling the extension removes all of the above. You can also clear it manually at any time via `chrome://extensions` → ReviewGenie → Details → "Extension options" or via Chrome's "Clear browsing data → Cookies and other site data".
+Ticket and pull request reviews are kept only in the open side panel and are discarded when you close it.
+
+Use the **Clear all** (trash) button in the side panel to delete saved analyses and constraints. Uninstalling the extension removes everything above.
 
 ## 3. Data sent to third parties
 
-When **you** explicitly trigger an analysis (Analyze Page, Generate WBS, Security Scan, Test Plan, Optimize Doc, Architecture Review, Diagrams, Dependency Map, Requirements Breakdown, Alternatives, or Chat), the extension sends the following directly from your browser to the AI endpoint **you** configured:
+Data is sent **only when you click an action**, and only to the AI endpoint **you** configured. The actions are: Analyze Page, Ticket Review, PR Review, Requirements, Architecture Review, Security Scan, API Review, Jira Tickets, Test Plan, Capacity, Runbook, Learnings, Diagrams, Dependency Map, Data Strategy, Alternatives, Optimize Doc, Animate Diagram, and Chat.
 
-- The text content of the active Confluence page (truncated to ~20,000 characters)
-- Your prompt / chat message (if any)
-- Your API key in the `Authorization` header
+Depending on the action, the request contains:
+
+- **Analyze Page and document modules:** the text of the active tab (truncated to ~20,000 characters).
+- **Ticket Review:** the text of the ticket page you are viewing (e.g. a Jira, GitHub, Linear or Azure Boards issue).
+- **PR Review:** the code diff of the files **you select** on the pull request page, the PR title and description, and your team guidelines if you set any.
+- **Chat:** your message, plus the document text and previous results (analysis, ticket review, PR review) so the AI has context.
+- **Your API key**, in the header your provider expects (`Authorization`, `api-key` or `x-api-key`).
 
 Recipients depend entirely on your settings:
 
-- **OpenAI** → `https://api.openai.com/v1/...` (subject to [OpenAI's privacy policy](https://openai.com/policies/privacy-policy))
-- **Anthropic** → `https://api.anthropic.com/...` (subject to [Anthropic's privacy policy](https://www.anthropic.com/legal/privacy))
-- **Azure OpenAI** → your tenant endpoint at `*.azure-api.net` / `*.openai.azure.com` (subject to your Microsoft agreement)
-- **Custom Endpoint** → the URL you entered (subject to that operator's terms)
+- **OpenAI** ‚Üí `https://api.openai.com/v1/...` (subject to [OpenAI's privacy policy](https://openai.com/policies/privacy-policy))
+- **Anthropic** ‚Üí `https://api.anthropic.com/...` (subject to [Anthropic's privacy policy](https://www.anthropic.com/legal/privacy))
+- **Azure OpenAI** ‚Üí your tenant endpoint at `*.azure-api.net` / `*.openai.azure.com` (subject to your Microsoft agreement)
+- **Custom Endpoint** ‚Üí the URL you entered, such as a company gateway or a model running on your own machine (subject to that operator's terms)
 
-ReviewGenie does **not** proxy these requests. They are direct browser-to-provider HTTPS calls.
+ReviewGenie does **not** proxy these requests; they go directly from your browser to your provider. Whether your provider retains or trains on this data is governed by **your provider's** terms and your account settings.
 
-## 4. Confluence access
+When the **Responses API** mode is selected, requests are sent with `store: true` so the provider can keep the chat thread. The provider retains those responses under its own data-retention policy.
 
-The content script runs only on URLs matching `https://*.atlassian.net/wiki/*`. It reads the rendered page (headings, prose, code blocks, embedded SQL, etc.) **only when you click an action** in the popup, side panel, or context menu. The extension does not exfiltrate Confluence content in the background, does not crawl other Confluence pages, and does not access Jira data.
+## 4. Page access
+
+Documents, tickets and code live on many domains, so the content script loads on http(s) and file pages. On load it only adds a small floating ReviewGenie button; it does not read the page. ReviewGenie reads a page **only when you click an action**, and only the active tab.
+
+- It reads what is **rendered on screen**. It does not call Jira, GitHub or GitLab APIs, and it never creates, edits or comments on tickets or pull requests. Findings and ticket text are copied to your clipboard for you to paste.
+- It does not read pages in the background or crawl other pages.
+- The only action that changes a page is **Insert into Page Editor** (Optimize tab). It asks for confirmation first and only edits the open editor.
+- You can restrict ReviewGenie to specific sites in **Settings ‚Üí Allowed Sites**.
 
 ## 5. Permissions justification
 
 | Permission | Why it is needed |
 | --- | --- |
-| `activeTab` | Read the current Confluence page text when you click "Analyze". |
-| `storage` | Persist your AI provider settings and API key locally. |
-| `sidePanel` | Render analysis results in Chrome's native side panel. |
-| `tabs` | Open the side panel and route messages to the correct tab. |
-| `contextMenus` | Provide the right-click "Analyze with ReviewGenie" entry on Confluence pages. |
-| `scripting` | Inject the content script that extracts the page text on demand. |
-| `host_permissions` for `*.atlassian.net`, `*.atlassian.com` | Read Confluence page content (content script). |
-| `host_permissions` for `*.openai.com`, `*.anthropic.com`, `*.azure-api.net`, `*.azure.com` | Make direct API calls to your selected provider. |
-| `<all_urls>` | Allow the user-configured **Custom Endpoint** (self-hosted gateway, corporate proxy, etc.) to be any HTTPS URL. The extension only contacts the exact URL you save in Settings. |
+| `activeTab` | Read the current page when you click an action. |
+| `storage` | Keep your settings, API key and saved results on your device. |
+| `sidePanel` | Show results in Chrome's side panel. |
+| `tabs` | Open the side panel and find the active tab you asked to review. |
+| `contextMenus` | Provide the right-click "Analyze with ReviewGenie" entry. |
+| `scripting` | Read the active page's text, ticket or code diff when you click an action. |
+| `host_permissions` for `*.atlassian.net`, `*.atlassian.com` | Read Confluence and Jira pages you choose to review. |
+| `host_permissions` for `*.openai.com`, `*.anthropic.com`, `*.azure-api.net`, `*.azure.com` | Call your selected AI provider directly. |
+| `<all_urls>` | Review pages on any site (docs, GitHub, GitLab, internal tools) when you click an action, and reach a user-configured **Custom Endpoint**. The extension only sends data to the AI endpoint you save in Settings. |
 
 ## 6. What we do not do
 
 - We do **not** sell, rent, or share any data.
-- We do **not** use your documents or prompts to train any model.
+- ReviewGenie does **not** use your documents, tickets, code or prompts to train any model.
 - We do **not** include analytics, A/B testing, or fingerprinting libraries.
-- We do **not** read browsing history or any non-Confluence tab.
-- We do **not** auto-upload documents — every network call requires an explicit user action.
+- We do **not** read browsing history or any tab other than the one you ask it to review.
+- We do **not** send anything automatically ‚Äî every network call requires an explicit user action.
 
 ## 7. Security
 
-- Your API key is stored in `chrome.storage.local`, isolated to the extension's origin.
-- All outbound calls use HTTPS.
-- No remote code is loaded; the extension ships with all scripts bundled.
+- Your API key is stored in `chrome.storage.local`, isolated to the extension's origin, and is sent only to the provider you configured.
+- Calls to OpenAI, Anthropic and Azure use HTTPS. A custom endpoint uses exactly the URL you enter (for example `http://localhost` for a local model).
+- No remote code is loaded; all scripts ship inside the extension. Generated diagram animations run in an isolated sandbox page with no access to your stored data or to extension APIs.
 
 ## 8. Children's privacy
 
@@ -86,13 +104,4 @@ Material changes will be reflected by updating the "Effective date" at the top a
 
 ## 10. Contact
 
-For questions or data requests: _Replace with your support email_ — `support@yourdomain.com`
-
----
-
-> **Publisher checklist before submission**
-> 1. Replace the contact email above with a real, monitored address.
-> 2. Host this file at a public HTTPS URL (e.g., GitHub Pages, your domain) and paste that URL into the **Privacy policy URL** field of the Chrome Web Store Developer Dashboard.
-> 3. In the Dashboard's **Privacy practices** tab, declare a "Single purpose": _Review and improve technical documents on Confluence using a user-configured AI provider._
-> 4. Declare data usage as: **Website content** (used for the single purpose, not sold, not used for credit/advertising, not used for unrelated purposes).
-](https://github.com/ragnar-lothbrok/ReviewGenie/blob/main/PRIVACY.md)
+For questions or data requests: `raghunitb@gmail.com`
